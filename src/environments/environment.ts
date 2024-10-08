@@ -7,7 +7,7 @@ import { Config } from './config.interface';
 export const environment: Config = {
   production: false,
   apiEndpoints: {
-    product: 'http://localhost:7071/api/',
+    product: 'https://fa-products-service-ne-004.azurewebsites.net/api',
     order: 'https://.execute-api.eu-west-1.amazonaws.com/dev',
     import: 'https://.execute-api.eu-west-1.amazonaws.com/dev',
     bff: 'http://localhost:7071/api/',
