@@ -123,6 +123,8 @@ export class EditProductComponent implements OnInit {
 
     const productId = this.productId();
 
+    console.log(123);
+
     const observable = productId
       ? this.productsService.editProduct(productId, product)
       : this.productsService.createNewProduct(product);

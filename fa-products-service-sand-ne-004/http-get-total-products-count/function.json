@@ -1,12 +1,12 @@
 {
   "bindings": [
     {
-      "authLevel": "anonymous",
+      "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": ["get"],
-      "route": "products/{productId}"
+      "route": "products/total"
     },
     {
       "type": "http",
@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/http-get-product-by-id/index.js"
+  "scriptFile": "../dist/http-get-total-products-count/index.js"
 }

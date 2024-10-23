@@ -7,10 +7,13 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "echo \"No tests yet...\"",
+    "populate-db": "ts-node dbScript.ts"
   },
   "dependencies": {
-    "@azure/app-configuration-provider": "^1.1.0"
+    "@azure/app-configuration-provider": "^1.1.0",
+    "@azure/cosmos": "^4.1.1",
+    "@azure/identity": "^4.5.0"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
