@@ -5,8 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["post"],
-      "route": "products"
+      "methods": ["get"],
+      "route": "import"
     },
     {
       "type": "http",
@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/http-post-product/index.js"
+  "scriptFile": "../dist/http-get-import-products-files/index.js"
 }
