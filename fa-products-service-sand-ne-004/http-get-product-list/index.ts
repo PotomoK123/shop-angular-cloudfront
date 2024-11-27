@@ -2,6 +2,9 @@ import { AzureFunction, Context } from '@azure/functions';
 import { Product } from '../models/product.model';
 import { CosmosClient } from '@azure/cosmos';
 import { Stock } from '../models/stock.model';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const key = process.env.COSMOS_KEY;
 const endpoint = process.env.COSMOS_ENDPOINT;

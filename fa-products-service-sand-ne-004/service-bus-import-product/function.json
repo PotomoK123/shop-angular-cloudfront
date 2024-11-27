@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "queueName": "my_servicebus_queue004",
+      "connection": "MyServiceBusConnection",
+      "name": "myQueueItem",
+      "type": "serviceBusTrigger",
+      "direction": "in"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "../dist/service-bus-import-product/index.js"
+}

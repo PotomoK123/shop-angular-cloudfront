@@ -285,3 +285,34 @@ resource "azurerm_cosmosdb_sql_container" "stocks" {
     }
   }
 }
+
+resource "azurerm_resource_group" "my_servicebus_rg" {
+  name     = "terraform-servicebus004"
+  location = "northeurope"
+}
+
+resource "azurerm_servicebus_namespace" "my_servicebus_ns" {
+  name                = "my-servicebus-namespace004"
+  location            = azurerm_resource_group.my_servicebus_rg.location
+  resource_group_name = azurerm_resource_group.my_servicebus_rg.name
+  sku                 = "Standard"
+
+  tags = {
+    source = "terraform"
+  }
+}
+
+resource "azurerm_servicebus_queue" "my_servicebus_queue" {
+  name         = "my_servicebus_queue004"
+  namespace_id = azurerm_servicebus_namespace.my_servicebus_ns.id
+  status                                  = "Active" /* Default value */
+  enable_partitioning                     = true /* Default value */
+  lock_duration                           = "PT1M" /* ISO 8601 timespan duration, 5 min is max */
+  max_message_size_in_kilobytes           = 256 /* default for Basic tier */
+  max_size_in_megabytes                   = 1024 /* Default value */
+  max_delivery_count                      = 10 /* Default value */
+  requires_duplicate_detection            = false
+  duplicate_detection_history_time_window = "PT10M" /* ISO 8601 timespan duration, 5 min is max */
+  requires_session                        = false
+  dead_lettering_on_message_expiration    = false
+}

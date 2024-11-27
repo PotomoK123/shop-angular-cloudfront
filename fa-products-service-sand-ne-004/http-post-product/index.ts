@@ -1,5 +1,8 @@
 import { CosmosClient } from '@azure/cosmos';
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const key = process.env.COSMOS_KEY;
 const endpoint = process.env.COSMOS_ENDPOINT;

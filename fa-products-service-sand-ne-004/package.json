@@ -13,7 +13,9 @@
   "dependencies": {
     "@azure/app-configuration-provider": "^1.1.0",
     "@azure/cosmos": "^4.1.1",
-    "@azure/identity": "^4.5.0"
+    "@azure/identity": "^4.5.0",
+    "@azure/service-bus": "^7.9.5",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
