@@ -27,20 +27,22 @@ const blobTrigger: AzureFunction = async function (
     .pipe(parse())
     .on('readable', async function () {
       const record = this.read();
+      context.log('record', record);
       let serviceBusMessageBatch: ServiceBusMessageBatch =
         await serviceBusSender.createMessageBatch();
 
       try {
-        while (record) {
-          if (!serviceBusMessageBatch.tryAddMessage(record)) {
-            await serviceBusSender.sendMessages(serviceBusMessageBatch);
+        const eventBatchMessage = {
+          body: record[0],
+        };
 
-            serviceBusMessageBatch =
-              await serviceBusSender.createMessageBatch();
+        if (!serviceBusMessageBatch.tryAddMessage(eventBatchMessage)) {
+          await serviceBusSender.sendMessages(serviceBusMessageBatch);
 
-            if (!serviceBusMessageBatch.tryAddMessage(record)) {
-              throw new Error('Message too big to fit in a batch');
-            }
+          serviceBusMessageBatch = await serviceBusSender.createMessageBatch();
+
+          if (!serviceBusMessageBatch.tryAddMessage(eventBatchMessage)) {
+            throw new Error('Message too big to fit in a batch');
           }
         }
 

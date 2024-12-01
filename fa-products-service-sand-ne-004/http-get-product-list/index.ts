@@ -21,23 +21,17 @@ const stocksContainer = database.container(stocksContainerName);
 const httpTrigger: AzureFunction = async function (
   context: Context,
 ): Promise<void> {
-  context.log('HTTP trigger function processed a request.');
-
   const { resources: productResponse } = await productsContainer.items
     .readAll()
     .fetchAll();
   const { resources: stockResponse } = await stocksContainer.items
     .readAll()
     .fetchAll();
-  context.log('Products response: ', productResponse);
-  context.log('Stocks response: ', stockResponse);
 
   const mergedResponse = mergeById(
     productResponse as Product[],
     stockResponse as Stock[],
   );
-
-  context.log('Merged response: ', mergedResponse);
 
   context.res = {
     body: mergedResponse,

@@ -20,10 +20,7 @@ const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest,
 ): Promise<void> {
-  context.log('HTTP trigger function processed a request.');
   const product = req.body;
-
-  context.log('product:', product);
 
   if (!req.body) {
     context.res = {

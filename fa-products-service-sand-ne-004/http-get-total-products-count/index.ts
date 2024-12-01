@@ -28,15 +28,11 @@ const httpTrigger: AzureFunction = async function (
   const { resources: stockResponse } = await stocksContainer.items
     .readAll()
     .fetchAll();
-  context.log('Products response: ', productResponse);
-  context.log('Stocks response: ', stockResponse);
 
   const mergedResponse = mergeByIdAndFilterEmpty(
     productResponse as Product[],
     stockResponse as Stock[],
   );
-
-  context.log('Merged response: ', mergedResponse);
 
   context.res = {
     // status: 200, /* Defaults to 200 */

@@ -305,14 +305,13 @@ resource "azurerm_servicebus_namespace" "my_servicebus_ns" {
 resource "azurerm_servicebus_queue" "my_servicebus_queue" {
   name         = "my_servicebus_queue004"
   namespace_id = azurerm_servicebus_namespace.my_servicebus_ns.id
-  status                                  = "Active" /* Default value */
-  enable_partitioning                     = true /* Default value */
-  lock_duration                           = "PT1M" /* ISO 8601 timespan duration, 5 min is max */
-  max_message_size_in_kilobytes           = 256 /* default for Basic tier */
-  max_size_in_megabytes                   = 1024 /* Default value */
-  max_delivery_count                      = 10 /* Default value */
+  status                                  = "Active" 
+  enable_partitioning                     = true 
+  lock_duration                           = "PT1M" 
+  max_size_in_megabytes                   = 1024 
+  max_delivery_count                      = 10 
   requires_duplicate_detection            = false
-  duplicate_detection_history_time_window = "PT10M" /* ISO 8601 timespan duration, 5 min is max */
+  duplicate_detection_history_time_window = "PT10M" 
   requires_session                        = false
   dead_lettering_on_message_expiration    = false
 }

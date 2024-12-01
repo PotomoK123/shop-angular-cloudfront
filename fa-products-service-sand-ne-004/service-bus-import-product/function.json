@@ -2,7 +2,7 @@
   "bindings": [
     {
       "queueName": "my_servicebus_queue004",
-      "connection": "MyServiceBusConnection",
+      "connection": "SERVICEBUS_CONNECTION_STRING",
       "name": "myQueueItem",
       "type": "serviceBusTrigger",
       "direction": "in"
