@@ -2,6 +2,9 @@ import { CosmosClient } from '@azure/cosmos';
 import { AzureFunction, Context } from '@azure/functions';
 import { Product } from '../models/product.model';
 import { Stock } from '../models/stock.model';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const key = process.env.COSMOS_KEY;
 const endpoint = process.env.COSMOS_ENDPOINT;
@@ -25,15 +28,11 @@ const httpTrigger: AzureFunction = async function (
   const { resources: stockResponse } = await stocksContainer.items
     .readAll()
     .fetchAll();
-  context.log('Products response: ', productResponse);
-  context.log('Stocks response: ', stockResponse);
 
   const mergedResponse = mergeByIdAndFilterEmpty(
     productResponse as Product[],
     stockResponse as Stock[],
   );
-
-  context.log('Merged response: ', mergedResponse);
 
   context.res = {
     // status: 200, /* Defaults to 200 */

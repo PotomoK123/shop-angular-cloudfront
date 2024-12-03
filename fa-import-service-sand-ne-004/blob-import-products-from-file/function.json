@@ -5,7 +5,8 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "uploaded/{name}",
-      "connection": "AzureWebJobsStorage"
+      "connection": "AZURE_STORAGE_CONNECTION_STRING"
     }
-  ]
+  ],
+  "scriptFile": "../dist/blob-import-products-from-file/index.js"
 }

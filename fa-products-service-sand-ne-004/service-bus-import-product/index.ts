@@ -1,5 +1,5 @@
 import { CosmosClient } from '@azure/cosmos';
-import { AzureFunction, Context, HttpRequest } from '@azure/functions';
+import { AzureFunction, Context } from '@azure/functions';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -16,50 +16,40 @@ const database = client.database(databaseName);
 const productsContainer = database.container(productsContainerName);
 const stocksContainer = database.container(stocksContainerName);
 
-const httpTrigger: AzureFunction = async function (
+const serviceBusTrigger: AzureFunction = async function (
   context: Context,
-  req: HttpRequest,
+  mySbMsg: string,
 ): Promise<void> {
-  const product = req.body;
+  context.log(
+    `TypeScript ServiceBus queue trigger function processed product: ${mySbMsg}`,
+    typeof mySbMsg,
+    // JSON.parse(mySbMsg)
+  );
 
-  if (!req.body) {
-    context.res = {
-      status: 400,
-      body: 'No Product data',
-    };
+  if (typeof mySbMsg !== 'string') {
+    return;
   }
 
-  if (
-    !product.title ||
-    !product.description ||
-    !product.price ||
-    !product.count
-  ) {
-    context.res = {
-      status: 400,
-      body: 'Product data is invalid',
-    };
-  }
+  const [title, description, price, count] = mySbMsg.split(';');
 
   const preparedProduct = {
-    title: product.title,
-    description: product.description,
-    price: product.price,
+    title,
+    description,
+    price,
   };
-
+  context.log('preparedProduct', preparedProduct);
   const { resource: productResponce } =
     await productsContainer.items.upsert(preparedProduct);
 
   const stock = {
-    count: product.count,
+    count: count,
     product_id: productResponce.id,
   };
+  context.log('stock', stock);
 
   await stocksContainer.items.upsert(stock);
 
-  context.res = {
-    body: product,
-  };
+  context.log(`Created item: ${productResponce.id}`);
 };
 
-export default httpTrigger;
+export default serviceBusTrigger;
