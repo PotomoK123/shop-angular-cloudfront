@@ -2,7 +2,8 @@
   "root": true,
   "ignorePatterns": [
     "projects/**/*",
-    "dist/**/*"
+    "dist/**/*",
+    "server/*"
   ],
   "overrides": [
     {
